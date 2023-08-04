@@ -23,6 +23,7 @@ import {MyContextProvider, useMyContext} from "../server/appContext.js"
 interface AuthInfo {
   isloggedIn: boolean;
 }
+//
 
 export default function Home() {
 
