@@ -29,6 +29,7 @@ export default function Home() {
 
   const router = useRouter();
 
+  const { data, setData } = useMyContext()
 
   const [authInfo, setAuthInfo] = useState<AuthInfo>({
     isloggedIn: false,
@@ -43,12 +44,11 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
 
-  const { state, setState } = useMyContext();
 
   useEffect(() => {
     // On component mount, check for the cookie
     checkCookie();
-    console.log('State: ', state)
+    // console.log('State: ', state)
 
   }, []);
 
@@ -87,7 +87,6 @@ export default function Home() {
 
   const register = async () => {
     // e.preventDefault();
-    console.log('CLicked')
     await createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         const userRes = res.user;
@@ -102,8 +101,6 @@ export default function Home() {
           setError("Email already in use");
         }
       });
-      console.log('CLicked')
-
   };
 
   const handleSignIn = async () => {
