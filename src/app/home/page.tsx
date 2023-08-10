@@ -12,13 +12,14 @@ import {
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { PlusIcon } from '@heroicons/react/20/solid'
+import { PlusIcon } from "@heroicons/react/20/solid";
 
 import Cookies from "universal-cookie";
 import { useRouter } from "next/navigation";
+import WorkflowStatus from "./workflowStatus"
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
+  { name: "Pipeline 1", href: "#", icon: HomeIcon, current: true, id: '65783696' },
   // { name: 'Team', href: '#', icon: UsersIcon, current: false },
   // { name: 'Projects', href: '#', icon: FolderIcon, current: false },
   // { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
@@ -114,6 +115,12 @@ export default function Home() {
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-2 ring-1 ring-white/10">
                     <div className="flex h-16 shrink-0 items-center">GUS</div>
                     <nav className="flex flex-1 flex-col">
+                      <button
+                        type="button"
+                        className="rounded-full bg-white px-2.5 py-1 m-6 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                      >
+                        New Pipeline
+                      </button>
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
@@ -147,14 +154,14 @@ export default function Home() {
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6">
-            <div className="flex h-16 shrink-0 items-center">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                alt="Your Company"
-              />
-            </div>
+            <div className="flex h-16 shrink-0 items-center">GUS</div>
             <nav className="flex flex-1 flex-col">
+            <button
+                        type="button"
+                        className="rounded-full bg-white px-2.5 py-1 m-6 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                      >
+                        New Pipeline
+                      </button>
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
@@ -169,32 +176,23 @@ export default function Home() {
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                           )}
                         >
-                          <item.icon
-                            className="h-6 w-6 shrink-0"
-                            aria-hidden="true"
-                          />
                           {item.name}
                         </a>
                       </li>
                     ))}
                   </ul>
                 </li>
-
-                <li className="-mx-6 mt-auto">
-                  <a
-                    href="#"
-                    className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-gray-800"
-                  >
-                    <img
-                      className="h-8 w-8 rounded-full bg-gray-800"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
-                    <span className="sr-only">Your profile</span>
-                    <span aria-hidden="true">Tom Cook</span>
-                  </a>
-                </li>
               </ul>
+              <button
+                type="button"
+                className="m-6"
+                id="user-menu-button"
+                aria-expanded="false"
+                onClick={handleDeleteCookie}
+                aria-haspopup="true"
+              >
+                Sign Out
+              </button>
             </nav>
           </div>
         </div>
@@ -226,35 +224,62 @@ export default function Home() {
         <main className="py-10 lg:pl-72">
           <div className="px-4 sm:px-6 lg:px-8">
             {/* Your content */}
+
+
             {Object.entries(stages).map(([key, value]) => (
               <>
-              <div className="border-b mb-8 mt-8 border-gray-200 bg-white px-4 py-5 sm:px-6">
-              <div className="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
-                <div className="ml-4 mt-4">
-                  <h3 className="text-base font-semibold leading-6 text-gray-900">{key}</h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit quam corrupti consectetur.
-                  </p>
-                  <p className="mt-1 text-sm text-gray-500">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit quam corrupti consectetur.Lorem ipsum dolor sit amet consectetur adipisicing elit quam corrupti consectetur.
-                  </p>
+                <div className="border-b mb-8 mt-8 border-gray-200 bg-white px-4 py-5 sm:px-6">
+                  <div className="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
+                    <div className="ml-4 mt-4">
+                      <h3 className="text-base font-semibold leading-6 text-gray-900">
+                        {key}
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit
+                        quam corrupti consectetur.
+
+                        <WorkflowStatus stage={key}/>
+
+                        
+                      </p>
+                      
+                      <p className="mt-1 text-sm text-gray-500">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit
+                        quam corrupti consectetur.Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit quam corrupti consectetur.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="relative">
-            <div className="absolute inset-0 flex items-center" aria-hidden="true">
-              <div className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center">
-              <span className="bg-black px-2 text-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
-</svg>              </span>
-            </div>
-          </div>
-          </>
+                <div className="relative">
+                  <div
+                    className="absolute inset-0 flex items-center"
+                    aria-hidden="true"
+                  >
+                    <div className="w-full border-t border-gray-300" />
+                  </div>
+                  <div className="relative flex justify-center">
+                    <span className="bg-black px-2 text-gray-500">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-4 h-4 text-white"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                        />
+                      </svg>{" "}
+                    </span>
+                  </div>
+                </div>
+              </>
             ))}
-            </div>
+          </div>
         </main>
       </div>
     </>
