@@ -614,7 +614,7 @@ const WorkflowStatus = ({ stage }) => {
             {/* Add your dashboard rows here */}
             {Object.entries(dashboard[stage]).map(([key, value]) => (
               <tr key={key} className="border">
-                <td>{value.description}</td>
+                <td>{(value as any).description}</td>
                 <td>Dev data</td>
                 <td>Pre-Prod data</td>
                 <td>Prod data</td>
