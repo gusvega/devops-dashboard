@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-interface WorkflowStatusProps {
+interface WorkflowJob {
    stage: string // Define the type for the 'stage' prop
  }
 
-const WorkflowStatus: React.FC<WorkflowStatusProps> = ({ stage }) => {  const [workflowJobs, setWorkflowJobs] = useState<WorkflowJob[]>([]);
+const WorkflowStatus: React.FC<WorkflowJob> = ({ stage }) => {  const [workflowJobs, setWorkflowJobs] = useState<WorkflowJob[]>([]);
 
   const fetchWorkflowJobs = async () => {
     try {
