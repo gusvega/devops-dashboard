@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 
-interface WorkflowJob {
-  // Define the structure of your workflow job data here
-  // For example, you might have properties like id, name, status, etc.
-}
+interface WorkflowStatusProps {
+   stage: [] // Define the type for the 'stage' prop
+ }
 
-const WorkflowStatus: React.FC = ({ stage }) => {
-  const [workflowJobs, setWorkflowJobs] = useState<WorkflowJob[]>([]);
+const WorkflowStatus: React.FC<WorkflowStatusProps> = ({ stage }) => {  const [workflowJobs, setWorkflowJobs] = useState<WorkflowJob[]>([]);
 
   const fetchWorkflowJobs = async () => {
     try {
@@ -63,34 +61,6 @@ const WorkflowStatus: React.FC = ({ stage }) => {
               },
             },
           },
-        },
-      },
-      userStoriesDistribution: {
-        description: "Visualization of user stories distribution.",
-        environment: {
-          dev: {
-            storyA: 25,
-            storyB: 50,
-            storyC: 25,
-          },
-          preprod: {
-            storyA: 30,
-            storyB: 40,
-            storyC: 30,
-          },
-          prod: {
-            storyA: 20,
-            storyB: 30,
-            storyC: 50,
-          },
-        },
-      },
-      progressCompletionTasks: {
-        description: "Progress bar indicating completion of tasks.",
-        environment: {
-          dev: 75,
-          preprod: 60,
-          prod: 100,
         },
       },
       criticalTasksDeadlines: {
