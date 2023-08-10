@@ -534,12 +534,12 @@ const WorkflowStatus: React.FC<WorkflowJob> = ({ stage }) => {  const [workflowJ
 
   return (
     <div className="mt-4 w-full">
-      {workflowJobs.find((obj) => obj.name === stage) && (
+      {workflowJobs.find((obj) => obj['name'] === stage) && (
         <table className="border-collapse w-full text-black border text-xs">
           <thead>
             <tr className="bg-gray-100 border">
               <th className="px-4 py-2 border">
-                {workflowJobs.find((obj) => obj.name === stage).name}
+                {workflowJobs.find((obj) => obj['name'] === stage)['name']}
               </th>
               <th className="px-4 py-2 border">Dev</th>
               <th className="px-4 py-2 border">Pre-Prod</th>
