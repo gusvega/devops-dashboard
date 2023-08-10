@@ -543,10 +543,10 @@ const WorkflowStatus = ({ stage }) => {
             <tr className="bg-gray-100 border">
               <th className="px-4 py-2 border">
                 {Object.entries(
-                  workflowJobs.find((obj) => obj['name'] === stage) || {}
+                  workflowJobs.find((obj) => obj["name"] === stage) || {}
                 ).map(
                   ([key, value]) =>
-                    key === "name" && <div key={key}>{value}</div>
+                    key === "name" && <div key={key}>{value as string}</div>
                 )}
               </th>
               <th className="px-4 py-2 border">Dev</th>
@@ -562,7 +562,7 @@ const WorkflowStatus = ({ stage }) => {
               {/* Add your pipeline job steps here */}
               <td>
                 {Object.entries(
-                  workflowJobs.find((obj) => obj['name'] === stage) || {}
+                  workflowJobs.find((obj) => obj["name"] === stage) || {}
                 ).map(
                   ([key, value]) =>
                     key === "steps" &&
@@ -598,7 +598,7 @@ const WorkflowStatus = ({ stage }) => {
             <tr id={`jobs-${stage}`} className="pl-6 mt-2 hidden border">
               <td style={{ width: "1%", whiteSpace: "nowrap" }}>
                 {Object.entries(
-                  workflowJobs.find((obj) => obj['name'] === stage) || {}
+                  workflowJobs.find((obj) => obj["name"] === stage) || {}
                 ).map(
                   ([key, value]) =>
                     key === "steps" &&
