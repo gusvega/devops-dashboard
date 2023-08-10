@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 
 interface WorkflowJob {
-   stage: string // Define the type for the 'stage' prop
- }
+  stage: {
+    name: string;
+  };
+}
 
-const WorkflowStatus: React.FC<WorkflowJob> = ({ stage }) => {  const [workflowJobs, setWorkflowJobs] = useState<WorkflowJob[]>([]);
+const WorkflowStatus: React.FC<WorkflowJob> = ({ stage }) => {
+  const [workflowJobs, setWorkflowJobs] = useState<WorkflowJob[]>([]);
 
   const fetchWorkflowJobs = async () => {
     try {
@@ -534,12 +537,17 @@ const WorkflowStatus: React.FC<WorkflowJob> = ({ stage }) => {  const [workflowJ
 
   return (
     <div className="mt-4 w-full">
-      {workflowJobs.find((obj) => obj['name'] === stage) && (
+      {workflowJobs.find((obj) => obj["name"] === stage) && (
         <table className="border-collapse w-full text-black border text-xs">
           <thead>
             <tr className="bg-gray-100 border">
               <th className="px-4 py-2 border">
-                {workflowJobs.find((obj) => obj['name'] === stage)['name']}
+                {Object.entries(
+                  workflowJobs.find((obj) => obj['name'] === stage) || {}
+                ).map(
+                  ([key, value]) =>
+                    key === "name" && <div key={key}>{value}</div>
+                )}
               </th>
               <th className="px-4 py-2 border">Dev</th>
               <th className="px-4 py-2 border">Pre-Prod</th>
@@ -554,7 +562,7 @@ const WorkflowStatus: React.FC<WorkflowJob> = ({ stage }) => {  const [workflowJ
               {/* Add your pipeline job steps here */}
               <td>
                 {Object.entries(
-                  workflowJobs.find((obj) => obj.name === stage)
+                  workflowJobs.find((obj) => obj['name'] === stage) || {}
                 ).map(
                   ([key, value]) =>
                     key === "steps" &&
@@ -579,7 +587,6 @@ const WorkflowStatus: React.FC<WorkflowJob> = ({ stage }) => {  const [workflowJ
                             </svg>
                           </button>
                           {step.name}
-
                         </div>
                       </td>
                     ))
@@ -591,7 +598,7 @@ const WorkflowStatus: React.FC<WorkflowJob> = ({ stage }) => {  const [workflowJ
             <tr id={`jobs-${stage}`} className="pl-6 mt-2 hidden border">
               <td style={{ width: "1%", whiteSpace: "nowrap" }}>
                 {Object.entries(
-                  workflowJobs.find((obj) => obj.name === stage)
+                  workflowJobs.find((obj) => obj['name'] === stage) || {}
                 ).map(
                   ([key, value]) =>
                     key === "steps" &&
