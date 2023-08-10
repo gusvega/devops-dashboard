@@ -29,7 +29,7 @@ export default function Home() {
 
   const router = useRouter();
 
-  const { data, setData } = useMyContext()
+  // const { data, setData } = useMyContext()
 
   const [authInfo, setAuthInfo] = useState<AuthInfo>({
     isloggedIn: false,
