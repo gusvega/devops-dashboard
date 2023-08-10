@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -42,7 +42,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Home() {
+
+const Home: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [token, setToken] = useState(null);
 
@@ -230,24 +231,8 @@ export default function Home() {
               <>
                 <div className="border-b mb-8 mt-8 border-gray-200 bg-white px-4 py-5 sm:px-6">
                   <div className="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
-                    <div className="ml-4 mt-4">
-                      <h3 className="text-base font-semibold leading-6 text-gray-900">
-                        {key}
-                      </h3>
-                      <p className="mt-1 text-sm text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit
-                        quam corrupti consectetur.
-
-                        <WorkflowStatus stage={key}/>
-
-                        
-                      </p>
-                      
-                      <p className="mt-1 text-sm text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit
-                        quam corrupti consectetur.Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit quam corrupti consectetur.
-                      </p>
+                    <div className="ml-4 w-full">
+                      <WorkflowStatus stage={key}/>
                     </div>
                   </div>
                 </div>
@@ -285,3 +270,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Home
