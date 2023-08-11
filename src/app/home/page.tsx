@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import WorkflowStatus from "./workflowStatus"
 
 const navigation = [
-  { name: "Pipeline 1", href: "#", icon: HomeIcon, current: true, id: '65783696' },
+  { name: "Project #1", href: "#", icon: HomeIcon, current: true, id: '65783696' },
   // { name: 'Team', href: '#', icon: UsersIcon, current: false },
   // { name: 'Projects', href: '#', icon: FolderIcon, current: false },
   // { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
@@ -161,7 +161,7 @@ const Home: React.FC = () => {
                         type="button"
                         className="rounded-full bg-white px-2.5 py-1 m-6 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                       >
-                        New Pipeline
+                        New Project
                       </button>
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>

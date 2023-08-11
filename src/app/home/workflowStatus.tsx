@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 
 const WorkflowStatus = ({ stage }) => {
   const [workflowJobs, setWorkflowJobs] = useState([]);
+  const [commits, setCommits] = useState([]);
 
   const fetchWorkflowJobs = async () => {
     try {
@@ -15,6 +16,17 @@ const WorkflowStatus = ({ stage }) => {
       const data = await response.json();
       setWorkflowJobs(data.jobs);
       console.log(workflowJobs);
+    } catch (error) {
+      console.error("Error fetching workflow jobs:", error);
+    }
+  };
+
+  const fetchCommits = async () => {
+    try {
+      const response = await fetch("/api/code/commits"); // Replace with your API endpoint
+      const data = await response.json();
+      setCommits(data);
+      console.log(commits);
     } catch (error) {
       console.error("Error fetching workflow jobs:", error);
     }
@@ -106,24 +118,6 @@ const WorkflowStatus = ({ stage }) => {
           dev: ["Pull Request 1", "Pull Request 2"],
           preprod: ["Pull Request 3"],
           prod: [],
-        },
-      },
-      codeQualityMetrics: {
-        description:
-          "Code quality metrics (e.g., code coverage, linting results).",
-        environment: {
-          dev: {
-            coverage: "80%",
-            linting: "No issues found",
-          },
-          preprod: {
-            coverage: "75%",
-            linting: "Some minor issues",
-          },
-          prod: {
-            coverage: "90%",
-            linting: "No issues found",
-          },
         },
       },
       recentCodeChanges: {
@@ -530,6 +524,7 @@ const WorkflowStatus = ({ stage }) => {
 
   useEffect(() => {
     fetchWorkflowJobs();
+    fetchCommits();
     //  const interval = setInterval(fetchWorkflowJobs, 5000);
 
     //  return () => clearInterval(interval);
@@ -615,7 +610,18 @@ const WorkflowStatus = ({ stage }) => {
             {Object.entries(dashboard[stage]).map(([key, value]) => (
               <tr key={key} className="border">
                 <td>{(value as any).description}</td>
-                <td>Dev data</td>
+                <td>
+                  <td>
+                    {stage == "code" && key === 'numberOfCommits' ? (
+                      <td className="flex">
+                        <td>{commits.length}</td>
+                        <td className="flex">{commits.length > 3 ? commits.slice(0, 3).map(commit => <div><div className="ml-3">{commit['sha'].substring(0, 6)}</div></div>) : commits.length}</td>
+                      </td>
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                </td>
                 <td>Pre-Prod data</td>
                 <td>Prod data</td>
               </tr>
