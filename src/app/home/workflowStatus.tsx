@@ -606,7 +606,7 @@ const WorkflowStatus = ({ stage }) => {
                 )}
               </td>
             </tr>
-            {/* Add your dashboard rows here */}
+            {/* Add your dashboard rows hereh */}
             {Object.entries(dashboard[stage]).map(([key, value]) => (
               <tr key={key} className="border">
                 <td>{(value as any).description}</td>
