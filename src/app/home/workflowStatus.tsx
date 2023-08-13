@@ -7,8 +7,13 @@ import { useState, useEffect } from "react";
 // }
 
 const WorkflowStatus = ({ stage }) => {
+
+  interface Commit {
+    sha: string; // Add other properties as needed
+  }
+
   const [workflowJobs, setWorkflowJobs] = useState([]);
-  const [commits, setCommits] = useState([]);
+const [commits, setCommits] = useState<Commit[]>([])
 
   const fetchWorkflowJobs = async () => {
     try {
