@@ -528,8 +528,7 @@ const [commits, setCommits] = useState<Commit[]>([])
   };
 
   useEffect(() => {
-    fetchWorkflowJobs();
-    fetchCommits();
+    [fetchWorkflowJobs(), fetchCommits()]
     //  const interval = setInterval(fetchWorkflowJobs, 5000);
 
     //  return () => clearInterval(interval);
@@ -620,7 +619,7 @@ const [commits, setCommits] = useState<Commit[]>([])
                     {stage == "code" && key === 'numberOfCommits' ? (
                       <td className="flex">
                         <td>{commits.length}</td>
-                        <td className="flex">{commits.length > 3 ? commits.slice(0, 3).map(commit => <div><div className="ml-3">{commit['sha'].substring(0, 6)}</div></div>) : commits.length}</td>
+                        <td className="flex">{commits.length > 3 ? commits.slice(0, 3).map(commit => <div key={key}><div className="ml-3">{commit['sha'].substring(0, 6)}</div></div>) : commits.length}</td>
                       </td>
                     ) : (
                       ""
