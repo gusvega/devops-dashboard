@@ -7,13 +7,17 @@ import { useState, useEffect } from "react";
 // }
 
 const WorkflowStatus = ({ stage }) => {
-
   interface Commit {
     sha: string; // Add other properties as needed
   }
 
+  interface PodStatuses {
+    statuses: [];
+  }
+
   const [workflowJobs, setWorkflowJobs] = useState([]);
-const [commits, setCommits] = useState<Commit[]>([])
+  const [commits, setCommits] = useState<Commit[]>([]);
+  const [podStatuses, setPodStatuses] = useState<PodStatuses[]>([]);
 
   const fetchWorkflowJobs = async () => {
     try {
@@ -32,6 +36,17 @@ const [commits, setCommits] = useState<Commit[]>([])
       const data = await response.json();
       setCommits(data);
       console.log(commits);
+    } catch (error) {
+      console.error("Error fetching workflow jobs:", error);
+    }
+  };
+
+  const fetchPodStatuses = async () => {
+    try {
+      const response = await fetch("/api/deploy/cluster"); // Replace with your API endpoint
+      const data = await response.json();
+      setPodStatuses(data);
+      console.log(podStatuses);
     } catch (error) {
       console.error("Error fetching workflow jobs:", error);
     }
@@ -528,7 +543,7 @@ const [commits, setCommits] = useState<Commit[]>([])
   };
 
   useEffect(() => {
-    [fetchWorkflowJobs(), fetchCommits()]
+    [fetchWorkflowJobs(), fetchCommits(), fetchPodStatuses()];
     //  const interval = setInterval(fetchWorkflowJobs, 5000);
 
     //  return () => clearInterval(interval);
@@ -580,7 +595,7 @@ const [commits, setCommits] = useState<Commit[]>([])
                               <path
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
-                                stroke-width="2"
+                                strokeWidth="2"
                                 d="M5 13l4 4L19 7"
                               ></path>
                             </svg>
@@ -616,10 +631,34 @@ const [commits, setCommits] = useState<Commit[]>([])
                 <td>{(value as any).description}</td>
                 <td>
                   <td>
-                    {stage == "code" && key === 'numberOfCommits' ? (
+                    {stage == "code" && key === "numberOfCommits" ? (
                       <td className="flex">
                         <td>{commits.length}</td>
-                        <td className="flex">{commits.length > 3 ? commits.slice(0, 3).map(commit => <div key={key}><div className="ml-3">{commit['sha'].substring(0, 6)}</div></div>) : commits.length}</td>
+                        <td className="flex">
+                          {commits.length > 3
+                            ? commits.slice(0, 3).map((commit) => (
+                                <div key={key}>
+                                  <div className="ml-3">
+                                    {commit["sha"].substring(0, 6)}
+                                  </div>
+                                </div>
+                              ))
+                            : commits.length}
+                        </td>
+                      </td>
+                    ) : (
+                      ""
+                    )}
+
+                    {stage == "deploy" && key === "environmentHealthStatus" ? (
+                      <td className="flex">
+                        <td className="flex">
+                          {podStatuses.map((pod) => (
+                            <div key={pod["name"]}>
+                              {pod["name"]} : {pod["status"]}
+                            </div>
+                          ))}
+                        </td>
                       </td>
                     ) : (
                       ""
