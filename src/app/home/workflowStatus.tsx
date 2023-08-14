@@ -24,7 +24,7 @@ const WorkflowStatus = ({ stage }) => {
       const response = await fetch("/api/planning/items"); // Replace with your API endpoint
       const data = await response.json();
       setWorkflowJobs(data.jobs);
-      console.log(workflowJobs);
+      // console.log(workflowJobs);
     } catch (error) {
       console.error("Error fetching workflow jobs:", error);
     }
@@ -35,7 +35,7 @@ const WorkflowStatus = ({ stage }) => {
       const response = await fetch("/api/code/commits"); // Replace with your API endpoint
       const data = await response.json();
       setCommits(data);
-      console.log(commits);
+      // console.log(commits);
     } catch (error) {
       console.error("Error fetching workflow jobs:", error);
     }
@@ -46,7 +46,7 @@ const WorkflowStatus = ({ stage }) => {
       const response = await fetch("/api/deploy/cluster"); // Replace with your API endpoint
       const data = await response.json();
       setPodStatuses(data);
-      console.log(podStatuses);
+      // console.log(podStatuses);
     } catch (error) {
       console.error("Error fetching workflow jobs:", error);
     }
